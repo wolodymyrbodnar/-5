@@ -1,0 +1,30 @@
+def format_text(input_file, output_file, max_line_length):
+    with open(input_file, 'r', encoding='utf-8') as infile:
+        text = infile.read()
+
+    formatted_text = ""
+    words = text.split()
+
+    current_line_length = 0
+    for word in words:
+        word_length = len(word)
+
+        if current_line_length + word_length + 1 <= max_line_length:
+            formatted_text += word + " "
+            current_line_length += word_length + 1
+        else:
+            formatted_text = formatted_text.rstrip() + '\n' + word + " "
+            current_line_length = word_length + 1
+
+    formatted_text = formatted_text.rstrip()
+
+    with open(output_file, 'w', encoding='utf-8') as outfile:
+        outfile.write(formatted_text)
+
+# Введення параметрів від користувача
+input_file_path = 'input.txt'
+output_file_path = 'output.txt'
+max_line_length = int(input("Введіть максимальну довжину рядка: "))
+
+# Виклик функції форматування
+format_text(input_file_path, output_file_path, max_line_length)
